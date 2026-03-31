@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://xtkurob2smpp"]
+
+[ext_resource type="Script" uid="uid://cm1s6ejy6p1e3" path="res://Keys/key.gd" id="1_lcrri"]
+[ext_resource type="Texture2D" uid="uid://cvpemy02aa32u" path="res://Keys/Keys.png" id="2_lcrri"]
+[ext_resource type="Texture2D" uid="uid://cmjvauqiucawl" path="res://Keys/keyshadow.png" id="2_qmr38"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ju6sy"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_lcrri"]
+resource_name = "IDLE"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, -2), Vector2(0, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qmr38"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ccs3"]
+_data = {
+&"IDLE": SubResource("Animation_lcrri"),
+&"RESET": SubResource("Animation_qmr38")
+}
+
+[node name="BlueKey" type="Area2D" unique_id=715803501]
+collision_layer = 32
+script = ExtResource("1_lcrri")
+key_type = "BLUE"
+bounce_height = 20.0
+min_distance = 75.0
+max_distance = 100.0
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=219187569]
+position = Vector2(0, 11)
+texture = ExtResource("2_qmr38")
+hframes = 2
+frame = 1
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=704346623]
+texture = ExtResource("2_lcrri")
+hframes = 3
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=358754555]
+shape = SubResource("CircleShape2D_ju6sy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1637664794]
+libraries/ = SubResource("AnimationLibrary_0ccs3")
+autoplay = &"IDLE"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

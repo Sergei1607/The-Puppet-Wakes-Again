@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://dlhcia7pho88g"]
+
+[ext_resource type="Script" uid="uid://dnylbm8argwfc" path="res://Enemy/enemy_stats.gd" id="1_d8260"]
+
+[resource]
+script = ExtResource("1_d8260")
+knockback_decay = 1000.0
+health_amount = 3.0
+metadata/_custom_type_script = "uid://dnylbm8argwfc"

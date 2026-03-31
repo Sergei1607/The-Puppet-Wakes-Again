@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://dyue17amljs5i"]
+
+[ext_resource type="Script" uid="uid://dsxogt4tpebja" path="res://Enemy/Robot/robot.gd" id="1_qaiah"]
+[ext_resource type="Resource" uid="uid://dlhcia7pho88g" path="res://Enemy/BouncingBall/ball_stats.tres" id="2_vya66"]
+[ext_resource type="Texture2D" uid="uid://ct10sn55btvew" path="res://Enemy/BouncingBall/Assets/shadow.png" id="3_l8b1v"]
+[ext_resource type="Shader" uid="uid://c55ro0r0p3dh8" path="res://Shaders/hit_flash.gdshader" id="4_7n7q7"]
+[ext_resource type="Texture2D" uid="uid://d31ttcd2vqrk" path="res://Enemy/Robot/robot.png" id="5_qaiah"]
+[ext_resource type="PackedScene" uid="uid://d4bo5j8t1jrfi" path="res://Components/hitbox.tscn" id="6_d0l6d"]
+[ext_resource type="Texture2D" uid="uid://cxr4alqcmqe6a" path="res://Components/Particles/dust.png" id="8_4wv71"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_47ljh"]
+resource_local_to_scene = true
+shader = ExtResource("4_7n7q7")
+shader_parameter/flash = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pvjdc"]
+size = Vector2(28, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x0dyy"]
+radius = 11.045361
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_47ljh"]
+radius = 17.0
+
+[sub_resource type="Gradient" id="Gradient_hc218"]
+offsets = PackedFloat32Array(0, 0.13076924, 0.86153847, 0.9948718)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_quare"]
+gradient = SubResource("Gradient_hc218")
+
+[sub_resource type="Curve" id="Curve_twoeg"]
+_data = [Vector2(0.024390243, 0.03864503), 0.0, 0.0, 0, 0, Vector2(0.39756098, 0.8759542), 0.0, 0.0, 0, 0, Vector2(0.7121951, 0.9007634), 0.0, 0.0, 0, 0, Vector2(0.99024385, 0.33635497), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_a8uk4"]
+curve = SubResource("Curve_twoeg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_icr8l"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 23.87
+initial_velocity_min = -50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 10, 0)
+scale_curve = SubResource("CurveTexture_a8uk4")
+color_ramp = SubResource("GradientTexture1D_quare")
+
+[sub_resource type="Animation" id="Animation_pvjdc"]
+resource_name = "Bounce"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_hc218"]
+resource_name = "Charge"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_4wv71"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hc218"]
+_data = {
+&"Bounce": SubResource("Animation_pvjdc"),
+&"Charge": SubResource("Animation_hc218"),
+&"RESET": SubResource("Animation_4wv71")
+}
+
+[node name="Robot" type="CharacterBody2D" unique_id=686489392]
+collision_layer = 4
+collision_mask = 80
+motion_mode = 1
+script = ExtResource("1_qaiah")
+stats = ExtResource("2_vya66")
+aim_spread_degrees = 50.0
+move_speed = 400.0
+min_bounce_dist = 100.0
+max_bounce_dist = 200.0
+min_duration = 0.7
+max_duration = 1.0
+dash_force = 676.0
+dash_decay = 1000.0
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=477817509]
+position = Vector2(0, -7)
+texture = ExtResource("3_l8b1v")
+hframes = 8
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1015079859]
+material = SubResource("ShaderMaterial_47ljh")
+texture = ExtResource("5_qaiah")
+hframes = 7
+
+[node name="EnviromentalCollision" type="CollisionShape2D" parent="." unique_id=365849297]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_pvjdc")
+
+[node name="Label" type="Label" parent="." unique_id=2143892991]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Hitbox" parent="." unique_id=665436866 instance=ExtResource("6_d0l6d")]
+position = Vector2(0, 2)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" parent="Hitbox" index="0" unique_id=1148273609]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_x0dyy")
+debug_color = Color(0.5815909, 0.547865, 0.19196698, 0.41960785)
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=916687529]
+position = Vector2(0, 3)
+collision_layer = 8
+collision_mask = 0
+
+[node name="HurboxCollisionShape" type="CollisionShape2D" parent="HurtBox" unique_id=941939354]
+shape = SubResource("CircleShape2D_47ljh")
+debug_color = Color(0.6117647, 0.07450981, 0.2901961, 0.41960785)
+
+[node name="DeadParticles" type="GPUParticles2D" parent="." unique_id=424915057]
+z_index = 4
+emitting = false
+amount = 80
+texture = ExtResource("8_4wv71")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2(-500, -100, 1000, 200)
+process_material = SubResource("ParticleProcessMaterial_icr8l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1528535824]
+libraries/ = SubResource("AnimationLibrary_hc218")
+autoplay = &"Bounce"
+
+[node name="BulletMarker" type="Marker2D" parent="." unique_id=419496702]
+position = Vector2(0, -14)
+
+[editable path="Hitbox"]

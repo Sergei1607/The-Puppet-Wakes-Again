@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://ch2a1in4wuc2k"]
+
+[ext_resource type="Texture2D" uid="uid://nqbbjout7wcc" path="res://Objects/health_pickup_shadow.png" id="1_3ossy"]
+[ext_resource type="Script" uid="uid://cyi3ff8nn41wc" path="res://Objects/health_pickup.gd" id="1_bfl4w"]
+[ext_resource type="Texture2D" uid="uid://sd8hh7ix3h0w" path="res://Objects/health_pickup.png" id="2_bfl4w"]
+
+[sub_resource type="Animation" id="Animation_8f3mf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vxg5r"]
+resource_name = "UPDOWN"
+length = 1.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(3.605001, 1.1486986, 1, 1.1095704, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, -2), Vector2(0, -3), Vector2(0, -2), Vector2(0, -1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7wpl2"]
+_data = {
+&"RESET": SubResource("Animation_8f3mf"),
+&"UPDOWN": SubResource("Animation_vxg5r")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8f3mf"]
+radius = 17.0
+
+[node name="HealthPickup" type="Area2D" unique_id=1476222779]
+collision_layer = 0
+script = ExtResource("1_bfl4w")
+max_distance = 25.0
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=187902757]
+texture = ExtResource("1_3ossy")
+hframes = 2
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=837991209]
+texture = ExtResource("2_bfl4w")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1042324662]
+libraries/ = SubResource("AnimationLibrary_7wpl2")
+autoplay = &"UPDOWN"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1085801314]
+shape = SubResource("CircleShape2D_8f3mf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

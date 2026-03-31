@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://pap7wc10ouk2"]
+
+[ext_resource type="Script" uid="uid://v3aqtu1l1ghe" path="res://Environmental/pencil.gd" id="1_50g60"]
+[ext_resource type="Texture2D" uid="uid://bcacke25salac" path="res://Environmental/Pencil.png" id="2_gjsyr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j1drl"]
+radius = 5.0
+height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_50g60"]
+radius = 13.038404
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50g60"]
+size = Vector2(22, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjsyr"]
+size = Vector2(22, 43.5)
+
+[node name="Pencil" type="StaticBody2D" unique_id=1680019913]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_50g60")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=612878466]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_j1drl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1811183373]
+position = Vector2(0, -27)
+texture = ExtResource("2_gjsyr")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=227381918]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1020435352]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_50g60")
+
+[node name="LowerZ" type="Area2D" parent="." unique_id=587382658]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerZ" unique_id=317038468]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_50g60")
+
+[node name="UpperZ" type="Area2D" parent="." unique_id=2018847016]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperZ" unique_id=1239116733]
+position = Vector2(0, -38.25)
+shape = SubResource("RectangleShape2D_gjsyr")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="LowerZ" to="." method="_on_lower_z_body_entered"]
+[connection signal="body_exited" from="LowerZ" to="." method="_on_lower_z_body_exited"]
+[connection signal="body_entered" from="UpperZ" to="." method="_on_upper_z_body_entered"]
+[connection signal="body_exited" from="UpperZ" to="." method="_on_upper_z_body_exited"]

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bx80askoxuvd3"]
+
+[ext_resource type="Script" uid="uid://hnt5soqfl8rb" path="res://Environmental/LegoBlock/lego_block.gd" id="1_6gytv"]
+[ext_resource type="Texture2D" uid="uid://5wxpnoxmla3m" path="res://Environmental/LegoBlock/DoubleLegoBlock.png" id="2_b572h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b572h"]
+size = Vector2(14, 17)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b572h"]
+radius = 12.0415945
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1d2oh"]
+size = Vector2(22, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3tpo3"]
+size = Vector2(22, 11)
+
+[node name="DoubleLegoBlock" type="StaticBody2D" unique_id=1613305824]
+y_sort_enabled = true
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_6gytv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1270631718]
+texture = ExtResource("2_b572h")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1662094603]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_b572h")
+
+[node name="SoundArea" type="Area2D" parent="." unique_id=1663430427]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoundArea" unique_id=1396982415]
+shape = SubResource("CircleShape2D_b572h")
+debug_color = Color(0.61386865, 0.5321001, 0.22071129, 0.41960785)
+
+[node name="LowerZ" type="Area2D" parent="." unique_id=465279320]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerZ" unique_id=806804016]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_1d2oh")
+
+[node name="UpperZ" type="Area2D" parent="." unique_id=1895049189]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperZ" unique_id=542686990]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_3tpo3")
+
+[connection signal="area_entered" from="SoundArea" to="." method="_on_sound_area_area_entered"]
+[connection signal="body_entered" from="LowerZ" to="." method="_on_lower_z_body_entered"]
+[connection signal="body_exited" from="LowerZ" to="." method="_on_lower_z_body_exited"]
+[connection signal="body_entered" from="UpperZ" to="." method="_on_upper_z_body_entered"]
+[connection signal="body_exited" from="UpperZ" to="." method="_on_upper_z_body_exited"]

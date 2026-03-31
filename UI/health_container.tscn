@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bu0v2nvvd2u31"]
+
+[ext_resource type="Script" uid="uid://s4lynnv4hbuu" path="res://UI/health_container.gd" id="1_emvou"]
+
+[node name="HealthContainer" type="MarginContainer" unique_id=726244821]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+script = ExtResource("1_emvou")
+
+[node name="Container" type="HBoxContainer" parent="." unique_id=1103218232]
+layout_mode = 2

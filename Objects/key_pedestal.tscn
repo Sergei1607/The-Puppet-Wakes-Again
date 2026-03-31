@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://cxjqnnx4uigro"]
+
+[ext_resource type="Script" uid="uid://cxh60w21uj1gx" path="res://Objects/key_pedestal.gd" id="1_fqgjt"]
+[ext_resource type="Texture2D" uid="uid://bi8tiw8rr58ob" path="res://Keys/key_pedestal.png" id="2_fqgjt"]
+[ext_resource type="Texture2D" uid="uid://0edgexaxe57i" path="res://Keys/BallKeyAnimation.png" id="3_pt1n8"]
+[ext_resource type="Texture2D" uid="uid://dliycx17bmf64" path="res://Keys/TrianglelKeyAnimation.png" id="4_ovlop"]
+[ext_resource type="Texture2D" uid="uid://dskxqoa4i6kps" path="res://Keys/SquareKeyAnimation.png" id="5_pikw6"]
+[ext_resource type="Texture2D" uid="uid://cxr4alqcmqe6a" path="res://Components/Particles/dust.png" id="6_c5g1f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fqgjt"]
+size = Vector2(74, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pt1n8"]
+size = Vector2(83, 27)
+
+[sub_resource type="Gradient" id="Gradient_j8jpt"]
+offsets = PackedFloat32Array(0, 0.13076924, 0.86153847, 0.9948718)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pt3e5"]
+gradient = SubResource("Gradient_j8jpt")
+
+[sub_resource type="Curve" id="Curve_826cu"]
+_data = [Vector2(0.024390243, 0.03864503), 0.0, 0.0, 0, 0, Vector2(0.26973686, 0.28204042), 0.0, 0.0, 0, 0, Vector2(0.66885966, 0.33136588), 0.0, 0.0, 0, 0, Vector2(1, 0.15598649), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_jhnac"]
+curve = SubResource("Curve_826cu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bv08l"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(40, 20, 1)
+spread = 0.0
+initial_velocity_min = -5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_jhnac")
+color_ramp = SubResource("GradientTexture1D_pt3e5")
+hue_variation_min = -0.68
+hue_variation_max = 0.14999998
+
+[node name="KeyPedestal" type="StaticBody2D" unique_id=884323081]
+collision_layer = 16
+script = ExtResource("1_fqgjt")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1137500116]
+texture = ExtResource("2_fqgjt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1651036022]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_fqgjt")
+
+[node name="PlayerArea" type="Area2D" parent="." unique_id=1452414637]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="PlayerArea" unique_id=210890501]
+visible = false
+position = Vector2(-0.5, 28.5)
+shape = SubResource("RectangleShape2D_pt1n8")
+debug_color = Color(0.5798306, 0.54609615, 0.24006152, 0.41960785)
+
+[node name="BallKey" type="Sprite2D" parent="." unique_id=908668282]
+visible = false
+position = Vector2(-19, -26)
+texture = ExtResource("3_pt1n8")
+
+[node name="BallKeyMarker" type="Marker2D" parent="." unique_id=866962497]
+position = Vector2(-19, -10)
+
+[node name="TriangleKey" type="Sprite2D" parent="." unique_id=1418656369]
+visible = false
+position = Vector2(0, -26)
+texture = ExtResource("4_ovlop")
+offset = Vector2(0, 10)
+
+[node name="TriangleKeyMarker" type="Marker2D" parent="." unique_id=1675133725]
+position = Vector2(0, -10)
+
+[node name="SquareKey" type="Sprite2D" parent="." unique_id=2034767227]
+visible = false
+position = Vector2(19, -26)
+texture = ExtResource("5_pikw6")
+offset = Vector2(-19, 10)
+
+[node name="SquareKeyMarker" type="Marker2D" parent="." unique_id=1568714797]
+position = Vector2(19, -10)
+
+[node name="MagicParticles" type="GPUParticles2D" parent="." unique_id=1764711694]
+z_index = 1
+position = Vector2(-1, -1)
+amount = 15
+texture = ExtResource("6_c5g1f")
+lifetime = 1.5
+randomness = 0.93
+visibility_rect = Rect2(-200, -200, 400, 500)
+process_material = SubResource("ParticleProcessMaterial_bv08l")
+
+[connection signal="body_entered" from="PlayerArea" to="." method="_on_player_area_body_entered"]
+[connection signal="body_exited" from="PlayerArea" to="." method="_on_player_area_body_exited"]

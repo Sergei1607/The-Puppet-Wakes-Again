@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://b4engg7ohatat"]
+
+[ext_resource type="Script" uid="uid://3bdjmmwxu2ok" path="res://Configuration/audio_manager.gd" id="1_6ryos"]
+[ext_resource type="AudioStream" uid="uid://cs62d6ci1qaw1" path="res://Configuration/Audio/MainMusic/MainTheme.mp3" id="2_m1uqi"]
+[ext_resource type="AudioStream" uid="uid://tjun1fkoh5ta" path="res://Configuration/Audio/SoundEffects/steps.mp3" id="3_m1uqi"]
+[ext_resource type="AudioStream" uid="uid://mucax1cwuasf" path="res://Configuration/Audio/SoundEffects/Other/magical_mystery.mp3" id="4_erg6c"]
+[ext_resource type="AudioStream" uid="uid://cjrqgnubr5qs1" path="res://Configuration/Audio/SoundEffects/dash.ogg" id="4_r1b12"]
+[ext_resource type="AudioStream" uid="uid://dlaxsob70allq" path="res://Configuration/Audio/MainMusic/EndTheme.mp3" id="5_jsfa6"]
+[ext_resource type="AudioStream" uid="uid://c3uarar680bvw" path="res://Configuration/Audio/SoundEffects/attack.wav" id="5_wrrvb"]
+[ext_resource type="AudioStream" uid="uid://npki78drkcgj" path="res://Configuration/Audio/SoundEffects/cloud poff.wav" id="6_ybdxk"]
+[ext_resource type="AudioStream" uid="uid://dbukb4j78sxg8" path="res://Configuration/Audio/SoundEffects/explosion.mp3" id="7_iiwkr"]
+[ext_resource type="AudioStream" uid="uid://c6qnkpjimkpja" path="res://Configuration/Audio/SoundEffects/Ball/ball_hit.wav" id="7_t7ltm"]
+[ext_resource type="AudioStream" uid="uid://beh76ho8lobj3" path="res://Configuration/Audio/SoundEffects/Ball/ball_charge.mp3" id="9_c24fo"]
+[ext_resource type="AudioStream" uid="uid://bhojmbg51gfje" path="res://Configuration/Audio/SoundEffects/Robot/robot_hit.ogg" id="9_r2xqo"]
+[ext_resource type="AudioStream" uid="uid://c5e5y8m2tus2l" path="res://Configuration/Audio/SoundEffects/Ball/ball_bounce.wav" id="9_x817j"]
+[ext_resource type="AudioStream" uid="uid://blbbnoff0iog0" path="res://Configuration/Audio/SoundEffects/Robot/robot_charge.mp3" id="10_yx14r"]
+[ext_resource type="AudioStream" uid="uid://cq78dxlpsdcw5" path="res://Configuration/Audio/SoundEffects/Robot/shoot.wav" id="12_k62rv"]
+[ext_resource type="AudioStream" uid="uid://bjfcbom28c62d" path="res://Configuration/Audio/SoundEffects/player_hurt.wav" id="14_0ppl1"]
+[ext_resource type="AudioStream" uid="uid://nm1o07phslbc" path="res://Configuration/Audio/SoundEffects/player_dead.wav" id="15_24s4i"]
+[ext_resource type="AudioStream" uid="uid://bux60lnfl3to0" path="res://Configuration/Audio/SoundEffects/health_container.wav" id="16_i88e7"]
+[ext_resource type="AudioStream" uid="uid://ti7wfo72aa4p" path="res://Configuration/Audio/SoundEffects/alert.wav" id="17_0n6qh"]
+[ext_resource type="AudioStream" uid="uid://dpoerdxae45ok" path="res://Configuration/Audio/SoundEffects/rock_drop.wav" id="18_nhqrl"]
+[ext_resource type="AudioStream" uid="uid://cwtq45nxfbid0" path="res://Configuration/Audio/SoundEffects/impact.wav" id="19_emfrp"]
+[ext_resource type="AudioStream" uid="uid://ds6qqlavhndou" path="res://Configuration/Audio/SoundEffects/lift.wav" id="20_x817j"]
+[ext_resource type="AudioStream" uid="uid://dq2qkn46utc7n" path="res://Configuration/Audio/SoundEffects/Other/health_pickup.ogg" id="21_ii0fu"]
+[ext_resource type="AudioStream" uid="uid://bfqdpp84xelmg" path="res://Configuration/Audio/SoundEffects/Other/key_pickup.mp3" id="22_vtk0c"]
+[ext_resource type="AudioStream" uid="uid://b4tcuqjpym32y" path="res://Configuration/Audio/SoundEffects/Other/key_placed.wav" id="23_vtk0c"]
+[ext_resource type="AudioStream" uid="uid://c4pmhd2oe07fg" path="res://Configuration/Audio/SoundEffects/Other/puzzle_completed.ogg" id="24_e3l0p"]
+[ext_resource type="AudioStream" uid="uid://v23pjjc7gjhr" path="res://Configuration/Audio/SoundEffects/Other/glass_heavy.wav" id="25_1icxu"]
+[ext_resource type="AudioStream" uid="uid://bt1bu6cc22vup" path="res://Configuration/Audio/SoundEffects/ui.ogg" id="25_36iiv"]
+[ext_resource type="AudioStream" uid="uid://7bexpuhio5ql" path="res://Configuration/Audio/SoundEffects/Other/glass_light.wav" id="26_vkywk"]
+[ext_resource type="AudioStream" uid="uid://cc40svuodsn4r" path="res://Configuration/Audio/SoundEffects/Other/tremor.wav" id="27_vkywk"]
+[ext_resource type="AudioStream" uid="uid://caiuoolgal4wo" path="res://Configuration/Audio/SoundEffects/Other/boss_roar.mp3" id="28_q2cmn"]
+[ext_resource type="AudioStream" uid="uid://e0c47c2c4wfy" path="res://Configuration/Audio/SoundEffects/Other/fight.wav" id="29_j36fo"]
+[ext_resource type="AudioStream" uid="uid://djym5ggja8ldc" path="res://Configuration/Audio/SoundEffects/Other/magic_sound.wav" id="30_hoh87"]
+[ext_resource type="AudioStream" uid="uid://byhqx4haywylv" path="res://Configuration/Audio/MainMusic/deadtheme.mp3" id="33_t3do2"]
+[ext_resource type="AudioStream" uid="uid://xb1tnt2epf6i" path="res://Configuration/Audio/SoundEffects/Other/assembly.wav" id="35_3jguv"]
+[ext_resource type="AudioStream" uid="uid://cgafa1ikbqxd6" path="res://Configuration/Audio/SoundEffects/impact_metal.ogg" id="36_woxik"]
+[ext_resource type="AudioStream" uid="uid://iciceipy22ob" path="res://Configuration/Audio/SoundEffects/slash.ogg" id="37_j07f5"]
+
+[node name="AudioManager" type="Node" unique_id=1033723888]
+script = ExtResource("1_6ryos")
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="." unique_id=1619000139]
+unique_name_in_owner = true
+stream = ExtResource("2_m1uqi")
+
+[node name="Fight" type="AudioStreamPlayer" parent="." unique_id=250706364]
+unique_name_in_owner = true
+stream = ExtResource("29_j36fo")
+
+[node name="MagicalMystery" type="AudioStreamPlayer" parent="." unique_id=1177898804]
+unique_name_in_owner = true
+stream = ExtResource("4_erg6c")
+
+[node name="EndTheme" type="AudioStreamPlayer" parent="." unique_id=331515811]
+unique_name_in_owner = true
+stream = ExtResource("5_jsfa6")
+volume_db = 4.0
+
+[node name="Deadtheme" type="AudioStreamPlayer" parent="." unique_id=496209808]
+unique_name_in_owner = true
+stream = ExtResource("33_t3do2")
+volume_db = 15.0
+
+[node name="FootsSteps" type="AudioStreamPlayer" parent="." unique_id=255939650]
+unique_name_in_owner = true
+stream = ExtResource("3_m1uqi")
+
+[node name="Dash" type="AudioStreamPlayer" parent="." unique_id=1599185648]
+unique_name_in_owner = true
+stream = ExtResource("4_r1b12")
+
+[node name="CloudPuff" type="AudioStreamPlayer" parent="." unique_id=155231283]
+unique_name_in_owner = true
+stream = ExtResource("6_ybdxk")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="." unique_id=79321924]
+unique_name_in_owner = true
+stream = ExtResource("7_iiwkr")
+
+[node name="Ball" type="Node" parent="." unique_id=668568889]
+
+[node name="BallHit" type="AudioStreamPlayer" parent="Ball" unique_id=1853612130]
+unique_name_in_owner = true
+stream = ExtResource("7_t7ltm")
+
+[node name="BallBounce" type="AudioStreamPlayer" parent="Ball" unique_id=560882611]
+unique_name_in_owner = true
+stream = ExtResource("9_x817j")
+
+[node name="BallCharge" type="AudioStreamPlayer" parent="Ball" unique_id=474263342]
+unique_name_in_owner = true
+stream = ExtResource("9_c24fo")
+
+[node name="Robot" type="Node" parent="." unique_id=1991973821]
+
+[node name="RobotHit" type="AudioStreamPlayer" parent="Robot" unique_id=1234989851]
+unique_name_in_owner = true
+stream = ExtResource("9_r2xqo")
+
+[node name="RobotCharge" type="AudioStreamPlayer" parent="Robot" unique_id=1854740903]
+unique_name_in_owner = true
+stream = ExtResource("10_yx14r")
+
+[node name="Fire" type="AudioStreamPlayer" parent="Robot" unique_id=1204425815]
+unique_name_in_owner = true
+stream = ExtResource("12_k62rv")
+
+[node name="Player" type="Node" parent="." unique_id=1082944921]
+
+[node name="PlayerHurt" type="AudioStreamPlayer" parent="Player" unique_id=1870611769]
+unique_name_in_owner = true
+stream = ExtResource("14_0ppl1")
+
+[node name="PlayerDead" type="AudioStreamPlayer" parent="Player" unique_id=861760528]
+unique_name_in_owner = true
+stream = ExtResource("15_24s4i")
+
+[node name="HealthContainer" type="AudioStreamPlayer" parent="." unique_id=702319094]
+unique_name_in_owner = true
+stream = ExtResource("16_i88e7")
+
+[node name="Alert" type="AudioStreamPlayer" parent="." unique_id=549611284]
+unique_name_in_owner = true
+stream = ExtResource("17_0n6qh")
+
+[node name="Drop" type="AudioStreamPlayer" parent="." unique_id=1575065403]
+unique_name_in_owner = true
+stream = ExtResource("18_nhqrl")
+
+[node name="Impact" type="AudioStreamPlayer" parent="." unique_id=1101331440]
+unique_name_in_owner = true
+stream = ExtResource("19_emfrp")
+
+[node name="Lift" type="AudioStreamPlayer" parent="." unique_id=1076070736]
+unique_name_in_owner = true
+stream = ExtResource("20_x817j")
+
+[node name="HealthPickup" type="AudioStreamPlayer" parent="." unique_id=752859261]
+unique_name_in_owner = true
+stream = ExtResource("21_ii0fu")
+
+[node name="UI" type="AudioStreamPlayer" parent="." unique_id=567984488]
+unique_name_in_owner = true
+stream = ExtResource("25_36iiv")
+
+[node name="KeyPickup" type="AudioStreamPlayer" parent="." unique_id=925481142]
+unique_name_in_owner = true
+stream = ExtResource("22_vtk0c")
+
+[node name="KeyPlaced" type="AudioStreamPlayer" parent="." unique_id=2114575742]
+unique_name_in_owner = true
+stream = ExtResource("23_vtk0c")
+
+[node name="PuzzleCompleted" type="AudioStreamPlayer" parent="." unique_id=1466562786]
+unique_name_in_owner = true
+stream = ExtResource("24_e3l0p")
+
+[node name="GlassHeavy" type="AudioStreamPlayer" parent="." unique_id=1853307652]
+unique_name_in_owner = true
+stream = ExtResource("25_1icxu")
+
+[node name="GlassLight" type="AudioStreamPlayer" parent="." unique_id=1963776375]
+unique_name_in_owner = true
+stream = ExtResource("26_vkywk")
+
+[node name="Tremor" type="AudioStreamPlayer" parent="." unique_id=156443872]
+unique_name_in_owner = true
+stream = ExtResource("27_vkywk")
+
+[node name="BossCry" type="AudioStreamPlayer" parent="." unique_id=184984080]
+unique_name_in_owner = true
+stream = ExtResource("28_q2cmn")
+
+[node name="MagicSound" type="AudioStreamPlayer" parent="." unique_id=785694422]
+unique_name_in_owner = true
+stream = ExtResource("30_hoh87")
+
+[node name="Attack" type="AudioStreamPlayer" parent="." unique_id=956245005]
+unique_name_in_owner = true
+stream = ExtResource("5_wrrvb")
+
+[node name="Assembly" type="AudioStreamPlayer" parent="." unique_id=1037165064]
+unique_name_in_owner = true
+stream = ExtResource("35_3jguv")
+
+[node name="ImpactMetal" type="AudioStreamPlayer" parent="." unique_id=1382262213]
+unique_name_in_owner = true
+stream = ExtResource("36_woxik")
+
+[node name="Slash" type="AudioStreamPlayer" parent="." unique_id=1107665552]
+unique_name_in_owner = true
+stream = ExtResource("37_j07f5")

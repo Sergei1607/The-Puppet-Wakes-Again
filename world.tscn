@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cbnfucdgu3kay"]
+
+[ext_resource type="Script" uid="uid://c4mf1asaycipm" path="res://world.gd" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://df7k50k07twqp" path="res://Rooms/room_holder.tscn" id="2_fj7yv"]
+
+[node name="World" type="Node2D" unique_id=155899936]
+visible = false
+y_sort_enabled = true
+script = ExtResource("1_f3sb7")
+critical_path_length = 5
+branches = Array[int]([256, 256, 256])
+branch_length = Vector2i(1, 2)
+room_holder = ExtResource("2_fj7yv")
+room_types = Array[String](["EMPTY", "ENTRANCE", "BOSS", "MAINDOOR", "ENEMY", "KEY", "RANDOM"])

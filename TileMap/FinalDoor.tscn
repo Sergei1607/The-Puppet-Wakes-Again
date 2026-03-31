@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cgkb5kplcpa6t"]
+
+[ext_resource type="Shader" uid="uid://c8wru7rtsgj0w" path="res://Shaders/final_door.gdshader" id="1_fv6v7"]
+[ext_resource type="Texture2D" uid="uid://eqbyln6qlhvh" path="res://TileMap/FinalDoor/FinalDoorFull.png" id="1_m5f8h"]
+[ext_resource type="Shader" uid="uid://b3q1ivydw3bqh" path="res://TileMap/smoke_door.gdshader" id="3_udul5"]
+[ext_resource type="Script" uid="uid://c5kyp65ts0j2h" path="res://TileMap/final_door.gd" id="3_vtqbp"]
+[ext_resource type="Texture2D" uid="uid://bc6vksmvvov1v" path="res://TileMap/FinalDoor/FinalDoorforShader.png" id="4_udul5"]
+[ext_resource type="Texture2D" uid="uid://cxr4alqcmqe6a" path="res://Components/Particles/dust.png" id="6_v14ok"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m5f8h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ij3gg"]
+shader = ExtResource("3_udul5")
+shader_parameter/smoke_color = Color(0.38872665, 0.660896, 0.8129786, 0.54901963)
+shader_parameter/speed = 0.22
+shader_parameter/noise_scale = 0.5
+shader_parameter/softness = 1.135
+shader_parameter/density = 0.015
+shader_parameter/flow_strength = 2.655
+shader_parameter/edge_fade = 0.04
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v14ok"]
+shader = ExtResource("1_fv6v7")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 2
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(0.5, 50)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 3
+shader_parameter/shape_feather = 0.0
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 0.0
+shader_parameter/progress_bias = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ij3gg"]
+offsets = PackedFloat32Array(0, 0.13076924, 0.86153847, 0.9948718)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pt3e5"]
+gradient = SubResource("Gradient_ij3gg")
+
+[sub_resource type="Curve" id="Curve_ca4ij"]
+_data = [Vector2(0.024390243, 0.03864503), 0.0, 0.0, 0, 0, Vector2(0.26116073, 0.21127361), 0.0, 0.0, 0, 0, Vector2(0.65178573, 0.32874352), 0.0, 0.0, 0, 0, Vector2(0.99024385, 0.33635497), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_jhnac"]
+curve = SubResource("Curve_ca4ij")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_teqi0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 41.97
+initial_velocity_min = -20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 10, 0)
+scale_min = 0.099999994
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_jhnac")
+color_ramp = SubResource("GradientTexture1D_pt3e5")
+hue_variation_min = -0.25000003
+hue_variation_max = -0.14000002
+
+[node name="FinalDoor" type="Sprite2D" unique_id=188519868]
+material = SubResource("ShaderMaterial_m5f8h")
+texture = ExtResource("1_m5f8h")
+script = ExtResource("3_vtqbp")
+
+[node name="SmokeDoor" type="Sprite2D" parent="." unique_id=1226179558]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_ij3gg")
+texture = ExtResource("4_udul5")
+
+[node name="Shader" type="Sprite2D" parent="." unique_id=590096510]
+material = SubResource("ShaderMaterial_v14ok")
+texture = ExtResource("4_udul5")
+
+[node name="MagicParticles" type="GPUParticles2D" parent="." unique_id=1429656600]
+z_index = 1
+emitting = false
+amount = 40
+texture = ExtResource("6_v14ok")
+lifetime = 0.9
+randomness = 1.0
+visibility_rect = Rect2(-200, -200, 400, 500)
+process_material = SubResource("ParticleProcessMaterial_teqi0")

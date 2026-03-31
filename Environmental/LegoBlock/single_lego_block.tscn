@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cbhbbs4wfsgue"]
+
+[ext_resource type="Texture2D" uid="uid://cvqsm1ng6j1h3" path="res://Environmental/LegoBlock/SingleLegoBlocks.png" id="1_1cos6"]
+[ext_resource type="Script" uid="uid://hnt5soqfl8rb" path="res://Environmental/LegoBlock/lego_block.gd" id="1_25b74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aj2r1"]
+size = Vector2(13, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aj2r1"]
+radius = 12.0415945
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7j2i"]
+size = Vector2(22, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3afo0"]
+size = Vector2(22, 11)
+
+[node name="SingleLegoBlock" type="StaticBody2D" unique_id=1613305824]
+y_sort_enabled = true
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_25b74")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1270631718]
+texture = ExtResource("1_1cos6")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1662094603]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_aj2r1")
+
+[node name="SoundArea" type="Area2D" parent="." unique_id=1148262296]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoundArea" unique_id=478595093]
+shape = SubResource("CircleShape2D_aj2r1")
+debug_color = Color(0.61386865, 0.5321001, 0.22071129, 0.41960785)
+
+[node name="LowerZ" type="Area2D" parent="." unique_id=278731830]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerZ" unique_id=1708506173]
+position = Vector2(-1, 11.5)
+shape = SubResource("RectangleShape2D_y7j2i")
+
+[node name="UpperZ" type="Area2D" parent="." unique_id=46473836]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperZ" unique_id=932181772]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_3afo0")
+
+[connection signal="area_entered" from="SoundArea" to="." method="_on_sound_area_area_entered"]
+[connection signal="body_entered" from="LowerZ" to="." method="_on_lower_z_body_entered"]
+[connection signal="body_exited" from="LowerZ" to="." method="_on_lower_z_body_exited"]
+[connection signal="body_entered" from="UpperZ" to="." method="_on_upper_z_body_entered"]
+[connection signal="body_exited" from="UpperZ" to="." method="_on_upper_z_body_exited"]

@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://dyue17amljs5i"]
+
+[ext_resource type="Script" uid="uid://dsxogt4tpebja" path="res://Enemy/Robot/robot.gd" id="1_qaiah"]
+[ext_resource type="Resource" uid="uid://dlhcia7pho88g" path="res://Enemy/BouncingBall/ball_stats.tres" id="2_vya66"]
+[ext_resource type="Texture2D" uid="uid://ct10sn55btvew" path="res://Enemy/BouncingBall/shadow.png" id="3_l8b1v"]
+[ext_resource type="Shader" uid="uid://c55ro0r0p3dh8" path="res://Shaders/hit_flash.gdshader" id="4_7n7q7"]
+[ext_resource type="Texture2D" uid="uid://d31ttcd2vqrk" path="res://Enemy/Robot/robot.png" id="5_qaiah"]
+[ext_resource type="PackedScene" uid="uid://d4bo5j8t1jrfi" path="res://Components/hitbox.tscn" id="6_d0l6d"]
+[ext_resource type="Texture2D" uid="uid://pa36rwxqrvi" path="res://Enemy/Robot/robotarm.png" id="7_pvjdc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_47ljh"]
+resource_local_to_scene = true
+shader = ExtResource("4_7n7q7")
+shader_parameter/flash = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_keaq7"]
+radius = 17.029387
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x0dyy"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_47ljh"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_47ljh"]
+resource_name = "Bounce"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.98999995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HurtBox:monitorable")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.98999995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_gjeuv"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HurtBox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f46gi"]
+_data = {
+&"Bounce": SubResource("Animation_47ljh"),
+&"RESET": SubResource("Animation_gjeuv")
+}
+
+[node name="Robot" type="CharacterBody2D" unique_id=686489392]
+collision_layer = 4
+collision_mask = 16
+script = ExtResource("1_qaiah")
+stats = ExtResource("2_vya66")
+debug = true
+aim_spread_degrees = 50.0
+move_speed = 400.0
+min_bounce_dist = 100.0
+max_bounce_dist = 200.0
+min_duration = 0.7
+max_duration = 1.0
+dash_force = 676.0
+dash_decay = 1000.0
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=477817509]
+position = Vector2(0, 12)
+texture = ExtResource("3_l8b1v")
+hframes = 3
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1015079859]
+material = SubResource("ShaderMaterial_47ljh")
+texture = ExtResource("5_qaiah")
+
+[node name="RobotArm" type="Sprite2D" parent="." unique_id=999075685]
+position = Vector2(0, 4)
+texture = ExtResource("7_pvjdc")
+centered = false
+offset = Vector2(0, -4)
+
+[node name="EnviromentalCollision" type="CollisionShape2D" parent="." unique_id=365849297]
+shape = SubResource("CircleShape2D_keaq7")
+
+[node name="Label" type="Label" parent="." unique_id=2143892991]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Hitbox" parent="." unique_id=665436866 instance=ExtResource("6_d0l6d")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" parent="Hitbox" index="0" unique_id=1148273609]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_x0dyy")
+debug_color = Color(0.5815909, 0.547865, 0.19196698, 0.41960785)
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=916687529]
+collision_layer = 8
+collision_mask = 0
+
+[node name="HurboxCollisionShape" type="CollisionShape2D" parent="HurtBox" unique_id=941939354]
+shape = SubResource("CircleShape2D_47ljh")
+debug_color = Color(0.6117647, 0.07450981, 0.2901961, 0.41960785)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=711388405]
+libraries/ = SubResource("AnimationLibrary_f46gi")
+
+[editable path="Hitbox"]

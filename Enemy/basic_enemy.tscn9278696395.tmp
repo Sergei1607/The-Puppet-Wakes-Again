@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ctwc14qi8sthe"]
+
+[ext_resource type="Script" uid="uid://pfmue14e3t5k" path="res://basic_enemy.gd" id="1_keaq7"]
+[ext_resource type="Texture2D" uid="uid://dlxn3wwpy0676" path="res://icon.svg" id="2_c5t6j"]
+[ext_resource type="Resource" uid="uid://dlhcia7pho88g" path="res://Enemy/basic_enemy_stats.tres" id="2_w27s0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_keaq7"]
+radius = 32.0
+
+[node name="BasicEnemy" type="CharacterBody2D" unique_id=686489392]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_keaq7")
+stats = ExtResource("2_w27s0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1015079859]
+modulate = Color(0.6117647, 0, 0.07450981, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_c5t6j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=365849297]
+shape = SubResource("CircleShape2D_keaq7")
+debug_color = Color(0.7921569, 0.27450982, 0.15686275, 0.41960785)
+
+[node name="Label" type="Label" parent="." unique_id=2143892991]
+offset_right = 40.0
+offset_bottom = 23.0

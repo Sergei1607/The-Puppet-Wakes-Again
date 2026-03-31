@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d1hufehqf8oap"]
+
+[ext_resource type="Texture2D" uid="uid://c8rvsoyrvlvet" path="res://TileMap/Blockers/golden_brick.png" id="1_w75j6"]
+[ext_resource type="Script" uid="uid://1hrjhe252a84" path="res://TileMap/golden_lego_blocker.gd" id="2_c70vy"]
+
+[node name="GoldenLegoBlocker" type="Sprite2D" unique_id=575955584]
+texture = ExtResource("1_w75j6")
+script = ExtResource("2_c70vy")

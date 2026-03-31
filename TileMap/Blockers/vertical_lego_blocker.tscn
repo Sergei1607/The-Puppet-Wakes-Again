@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dk11uj82wurl7"]
+
+[ext_resource type="Texture2D" uid="uid://b1wur21iatn61" path="res://TileMap/Blockers/vertical_lego_door_block.png" id="1_smwxb"]
+[ext_resource type="Script" uid="uid://y3omuhjyk0ur" path="res://TileMap/Blockers/blocker.gd" id="2_c05f8"]
+[ext_resource type="Texture2D" uid="uid://cxr4alqcmqe6a" path="res://Components/Particles/dust.png" id="3_tc1vu"]
+
+[sub_resource type="Gradient" id="Gradient_3pu3b"]
+offsets = PackedFloat32Array(0, 0.13076924, 0.86153847, 0.9948718)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ejgj"]
+gradient = SubResource("Gradient_3pu3b")
+
+[sub_resource type="Curve" id="Curve_efflq"]
+_data = [Vector2(0.024390243, 0.03864503), 0.0, 0.0, 0, 0, Vector2(0.39756098, 0.8759542), 0.0, 0.0, 0, 0, Vector2(0.7121951, 0.9007634), 0.0, 0.0, 0, 0, Vector2(0.99024385, 0.33635497), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_0krvv"]
+curve = SubResource("Curve_efflq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_83wm6"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 50, 1)
+initial_velocity_min = -50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 10, 0)
+scale_curve = SubResource("CurveTexture_0krvv")
+color_ramp = SubResource("GradientTexture1D_3ejgj")
+
+[node name="VerticalLegoBlocker" type="Sprite2D" unique_id=1851633370]
+texture = ExtResource("1_smwxb")
+hframes = 3
+script = ExtResource("2_c05f8")
+
+[node name="DustParticles" type="GPUParticles2D" parent="." unique_id=547902159]
+z_index = -1
+emitting = false
+amount = 40
+texture = ExtResource("3_tc1vu")
+lifetime = 0.9
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2(-500, -100, 1000, 200)
+process_material = SubResource("ParticleProcessMaterial_83wm6")

@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://olkfv2g4e7vl"]
+
+[ext_resource type="Script" uid="uid://8v0jj5k3doei" path="res://Environmental/ToyCapsules/toy_capsule.gd" id="1_532ds"]
+[ext_resource type="PackedScene" uid="uid://bvj6wwfjhjurc" path="res://Keys/green_key.tscn" id="2_62wdv"]
+[ext_resource type="Shader" uid="uid://c55ro0r0p3dh8" path="res://Shaders/hit_flash.gdshader" id="2_n5jpb"]
+[ext_resource type="Texture2D" uid="uid://c6tdh46xv0d1o" path="res://Environmental/ToyCapsules/Green/GreenToyCapsule.png" id="3_0s058"]
+[ext_resource type="Texture2D" uid="uid://bnu6t34fkm3wm" path="res://Environmental/ToyCapsules/BrokenGlass.png" id="4_12pf7"]
+[ext_resource type="Texture2D" uid="uid://cbupbfgq6styn" path="res://Environmental/ToyCapsules/Green/GreenToyCapsuleBase.png" id="5_62wdv"]
+[ext_resource type="Texture2D" uid="uid://bexacver1mqcm" path="res://Environmental/ToyCapsules/GlassParticles.png" id="6_d50vv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_62wdv"]
+radius = 12.0
+height = 24.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fnvem"]
+shader = ExtResource("2_n5jpb")
+shader_parameter/flash = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fnvem"]
+radius = 22.0
+height = 64.0
+
+[sub_resource type="Animation" id="Animation_y1j2c"]
+resource_name = "KeyBounce"
+length = 1.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_fnvem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m6ar7"]
+_data = {
+&"KeyBounce": SubResource("Animation_y1j2c"),
+&"RESET": SubResource("Animation_fnvem")
+}
+
+[sub_resource type="Gradient" id="Gradient_m6ar7"]
+offsets = PackedFloat32Array(0, 0.13076924, 0.86153847, 0.9948718)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ynker"]
+gradient = SubResource("Gradient_m6ar7")
+
+[sub_resource type="Curve" id="Curve_yq3o5"]
+_data = [Vector2(0.024390243, 0.03864503), 0.0, 0.0, 0, 0, Vector2(0.39756098, 0.8759542), 0.0, 0.0, 0, 0, Vector2(0.7121951, 0.9007634), 0.0, 0.0, 0, 0, Vector2(0.99024385, 0.33635497), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_t6e01"]
+curve = SubResource("Curve_yq3o5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mmgcw"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 39.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 900, 0)
+scale_curve = SubResource("CurveTexture_t6e01")
+color_ramp = SubResource("GradientTexture1D_ynker")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62wdv"]
+size = Vector2(33, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huey2"]
+size = Vector2(38, 11)
+
+[node name="GreenToyCapsule" type="StaticBody2D" unique_id=1746000799]
+collision_layer = 16
+script = ExtResource("1_532ds")
+key = ExtResource("2_62wdv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1305967335]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_62wdv")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=265599161]
+material = SubResource("ShaderMaterial_fnvem")
+texture = ExtResource("3_0s058")
+offset = Vector2(0, -5)
+hframes = 8
+
+[node name="BrokenGlass" type="Sprite2D" parent="." unique_id=415344307]
+visible = false
+texture = ExtResource("4_12pf7")
+offset = Vector2(0, -5)
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1377203990]
+visible = false
+texture = ExtResource("5_62wdv")
+offset = Vector2(0, -5)
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=878377678]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=553887435]
+shape = SubResource("CapsuleShape2D_fnvem")
+debug_color = Color(0.5271726, 0.5687004, 0.1880621, 0.41960785)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1701129799]
+libraries/ = SubResource("AnimationLibrary_m6ar7")
+autoplay = &"KeyBounce"
+
+[node name="GlassParticles" type="GPUParticles2D" parent="." unique_id=1487147290]
+z_index = 4
+emitting = false
+amount = 15
+texture = ExtResource("6_d50vv")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+visibility_rect = Rect2(-500, -100, 1000, 200)
+process_material = SubResource("ParticleProcessMaterial_mmgcw")
+
+[node name="LowerZ" type="Area2D" parent="." unique_id=44070800]
+position = Vector2(0, 11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerZ" unique_id=833702279]
+position = Vector2(0.5, 12)
+shape = SubResource("RectangleShape2D_62wdv")
+
+[node name="UpperZ" type="Area2D" parent="." unique_id=240153350]
+position = Vector2(0, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperZ" unique_id=1254597171]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_huey2")
+
+[connection signal="body_entered" from="LowerZ" to="." method="_on_lower_z_body_entered"]
+[connection signal="body_exited" from="LowerZ" to="." method="_on_lower_z_body_exited"]
+[connection signal="body_entered" from="UpperZ" to="." method="_on_upper_z_body_entered"]
+[connection signal="body_exited" from="UpperZ" to="." method="_on_upper_z_body_exited"]

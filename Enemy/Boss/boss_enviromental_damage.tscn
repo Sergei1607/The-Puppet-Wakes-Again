@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bhmrkcc5witrh"]
+
+[ext_resource type="Script" uid="uid://c8xve4logl6v7" path="res://Enemy/Boss/boss_enviromental_damage.gd" id="1_tdgkc"]
+[ext_resource type="Texture2D" uid="uid://cyxit4885hulq" path="res://Enemy/Boss/environmentaldamage.png" id="2_k6h16"]
+[ext_resource type="Texture2D" uid="uid://ct10sn55btvew" path="res://Enemy/BouncingBall/Assets/shadow.png" id="2_tdgkc"]
+[ext_resource type="PackedScene" uid="uid://d4bo5j8t1jrfi" path="res://Components/hitbox.tscn" id="4_ih4cy"]
+[ext_resource type="Texture2D" uid="uid://cxr4alqcmqe6a" path="res://Components/Particles/dust.png" id="5_k6h16"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ih4cy"]
+
+[sub_resource type="Gradient" id="Gradient_see0k"]
+offsets = PackedFloat32Array(0, 0.13076924, 0.86153847, 0.9948718)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_quare"]
+gradient = SubResource("Gradient_see0k")
+
+[sub_resource type="Curve" id="Curve_diiid"]
+_data = [Vector2(0.024390243, 0.03864503), 0.0, 0.0, 0, 0, Vector2(0.39756098, 0.8759542), 0.0, 0.0, 0, 0, Vector2(0.7121951, 0.9007634), 0.0, 0.0, 0, 0, Vector2(0.99024385, 0.33635497), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_a8uk4"]
+curve = SubResource("Curve_diiid")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v58uw"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 23.87
+initial_velocity_min = -50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 10, 0)
+scale_curve = SubResource("CurveTexture_a8uk4")
+color_ramp = SubResource("GradientTexture1D_quare")
+
+[node name="BossEnviromentalDamage" type="Node2D" unique_id=1456955159]
+script = ExtResource("1_tdgkc")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1613389363]
+position = Vector2(0, -376)
+texture = ExtResource("2_k6h16")
+offset = Vector2(0, -14)
+hframes = 3
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=842375691]
+position = Vector2(0, -16)
+texture = ExtResource("2_tdgkc")
+hframes = 8
+
+[node name="Hitbox" parent="." unique_id=665436866 instance=ExtResource("4_ih4cy")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" parent="Hitbox" index="0" unique_id=1148273609]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_ih4cy")
+disabled = true
+
+[node name="DustParticles" type="GPUParticles2D" parent="." unique_id=1755334119]
+z_index = -1
+emitting = false
+amount = 40
+texture = ExtResource("5_k6h16")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2(-500, -100, 1000, 200)
+process_material = SubResource("ParticleProcessMaterial_v58uw")
+
+[editable path="Hitbox"]

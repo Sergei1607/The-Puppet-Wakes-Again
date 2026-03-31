@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://df7k50k07twqp"]
+
+[ext_resource type="Script" uid="uid://c1c7der6vqb7g" path="res://Rooms/room_holder.gd" id="1_85ffx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s6mm0"]
+font_size = 200
+
+[node name="RoomHolder" type="Node2D" unique_id=334308189]
+script = ExtResource("1_85ffx")
+
+[node name="Label" type="Label" parent="." unique_id=808963690]
+visible = false
+offset_left = -80.0
+offset_top = -144.0
+offset_right = -40.0
+offset_bottom = 129.0
+label_settings = SubResource("LabelSettings_s6mm0")

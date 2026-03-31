@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://dh6qf2wq0qsw8"]
+
+[ext_resource type="Script" uid="uid://d22oac00t2xct" path="res://Enemy/Robot/robot_homing_rocket.gd" id="1_msnpj"]
+[ext_resource type="Texture2D" uid="uid://chnfchwc4myg4" path="res://Enemy/Robot/HommingMissile.png" id="2_msnpj"]
+[ext_resource type="PackedScene" uid="uid://d4bo5j8t1jrfi" path="res://Components/hitbox.tscn" id="3_14lme"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kas05"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14lme"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xtgl"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0jia"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v51lh"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh0t8"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nx5of"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_euy5s"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uibo"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp4t7"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwxc8"]
+atlas = ExtResource("2_msnpj")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xan5r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kas05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14lme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xtgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0jia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v51lh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh0t8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nx5of")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_euy5s")
+}],
+"loop": false,
+"name": &"Explode",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uibo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp4t7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwxc8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8apaj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uqu1y"]
+radius = 8.0
+
+[node name="RobotHomingRocket" type="Area2D" unique_id=777726036]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_msnpj")
+speed = 250.0
+max_distance = 700.0
+drag_factor = 3.0
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=992505383]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_xan5r")
+animation = &"Explode"
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=157680549]
+shape = SubResource("CircleShape2D_8apaj")
+debug_color = Color(0.870013, 0.30743384, 0.4479326, 0.41960785)
+
+[node name="Hitbox" parent="." unique_id=665436866 instance=ExtResource("3_14lme")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" parent="Hitbox" index="0" unique_id=1148273609]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_uqu1y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+
+[editable path="Hitbox"]
